@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCN MCQ Exam - 130 Questions</title>
+    <!-- Tailwind CSS with Dark Mode config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#1a202c',
+                        darkcard: '#2d3748',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        .lecture-section { scroll-margin-top: 100px; } 
+        /* Custom styles for selection */
+        .correct-bg { background-color: #d1fae5 !important; border-color: #34d399 !important; }
+        .wrong-bg { background-color: #fee2e2 !important; border-color: #f87171 !important; }
+        .dark .correct-bg { background-color: #064e3b !important; border-color: #059669 !important; color: #d1fae5 !important; }
+        .dark .wrong-bg { background-color: #7f1d1d !important; border-color: #dc2626 !important; color: #fee2e2 !important; }
+        
+        .opt-label.disabled { cursor: not-allowed; opacity: 0.8; }
+        .opt-label:not(.disabled):hover { background-color: #f9fafb; }
+        .dark .opt-label:not(.disabled):hover { background-color: #4a5568; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-darkbg dark:text-gray-200 transition-colors duration-300">
+
+    <nav class="fixed top-0 w-full bg-blue-800 dark:bg-gray-900 text-white px-4 py-2 sm:p-4 shadow-lg z-50 flex flex-wrap sm:flex-nowrap justify-between items-center transition-colors duration-300 gap-y-2 sm:gap-y-0">
+    
+    <div class="text-lg sm:text-xl font-bold flex items-center gap-2 order-1">
+        <i class="fas fa-network-wired"></i> <span id="main-title">DCN MCQ 130</span>
+    </div>
+
+    <div class="flex gap-2 order-2 sm:order-3">
+        <button id="langToggleBtn" onclick="toggleLanguage()" class="bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded font-bold shadow transition-colors">
+            EN
+        </button>
+        <button onclick="toggleDarkMode()" class="bg-gray-700 hover:bg-gray-600 dark:bg-yellow-500 dark:hover:bg-yellow-400 dark:text-gray-900 text-yellow-300 px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded font-bold shadow transition-colors">
+            <i id="darkModeIcon" class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="w-full sm:w-auto order-3 sm:order-2 flex-grow sm:mx-4 mt-1 sm:mt-0">
+        <select id="lectureSelect" onchange="scrollToLecture()" class="bg-white text-blue-900 dark:bg-gray-700 dark:text-gray-200 border border-transparent dark:border-gray-600 px-2 py-1.5 sm:px-3 sm:py-2 text-sm sm:text-base rounded shadow outline-none font-semibold cursor-pointer w-full transition-colors">
+            <option value="" id="opt-select-lec">Select Lecture...</option>
+            <option value="L1" id="opt-l1">Lecture 1: Introduction</option>
+            <option value="L2" id="opt-l2">Lecture 2: Protocol Architecture</option>
+            <option value="L3" id="opt-l3">Lecture 3: Physical Layer</option>
+            <option value="L4" id="opt-l4">Lecture 4: Link Layer</option>
+            <option value="L5" id="opt-l5">Lecture 5: Network Layer / IP</option>
+            <option value="Lab" id="opt-lab">Lab Practicals (1-7)</option>
+        </select>
+    </div>
+
+</nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-32 sm:mt-28 px-4 pb-12" id="quiz-container">
+        <!-- Questions will be injected here via JavaScript -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-black text-white text-center p-4 mt-8 transition-colors duration-300">
+        <p id="footer-text">Created based on SLIIT IE1030 DCN Lectures 1-5 & Lab Practicals</p>
+    </footer>
+
+    <script>
+        // UI Translations
+        const uiText = {
+            si: {
+                title: "DCN MCQ 130",
+                selectLec: "පාඩම තෝරන්න...",
+                checkBtn: "පිළිතුර පරීක්ෂා කරන්න",
+                correctStatus: "නිවැරදියි! (Correct!)",
+                wrongStatus: "වැරදියි! (Incorrect)",
+                correctAnsPrefix: "නිවැරදි පිළිතුර:"
+            },
+            en: {
+                title: "DCN MCQ 130",
+                selectLec: "Select Lecture...",
+                checkBtn: "Check Answer",
+                correctStatus: "Correct!",
+                wrongStatus: "Incorrect!",
+                correctAnsPrefix: "Correct Answer:"
+            }
+        };
+
+        // MCQ Database (130 Questions with both SI and EN)
+        const mcqData = [
+            // --- Lecture 1: Introduction (20 Questions) ---
+            { 
+                l: 'L1', 
+                lname_si: 'Lecture 1: Introduction', lname_en: 'Lecture 1: Introduction',
+                q_si: "දත්ත සන්නිවේදන පද්ධතියක (Data Communication System) ප්‍රධාන සංරචක (Components) කීයක් තිබේද?", 
+                q_en: "How many main components are there in a Data Communication System?",
+                o_si: ["3", "4", "5", "7"], o_en: ["3", "4", "5", "7"], a: 2 
+            },
+            { 
+                l: 'L1', 
+                q_si: "පහත ඒවායින් Data Communication System එකක අංගයක් නොවන්නේ කුමක්ද?", 
+                q_en: "Which of the following is NOT a component of a Data Communication System?",
+                o_si: ["Sender", "Protocol", "Router", "Transmission Medium"], o_en: ["Sender", "Protocol", "Router", "Transmission Medium"], a: 2 
+            },
+            { l: 'L1', q_si: "එක් දිශාවකට පමණක් දත්ත ගලායන (Data flow) ක්‍රමය කුමක්ද?", q_en: "What is the data flow mode where data flows in only one direction?", o_si: ["Half-duplex", "Full-duplex", "Simplex", "Multiplex"], o_en: ["Half-duplex", "Full-duplex", "Simplex", "Multiplex"], a: 2 },
+            { l: 'L1', q_si: "Walkie-talkie යන්ත්‍රයක භාවිතා වන දත්ත ගලායාමේ ක්‍රමය කුමක්ද?", q_en: "Which data flow mode is used in a Walkie-talkie?", o_si: ["Simplex", "Half-duplex", "Full-duplex", "Complex"], o_en: ["Simplex", "Half-duplex", "Full-duplex", "Complex"], a: 1 },
+            { l: 'L1', q_si: "දුරකථන ජාලයක (Telephone network) දත්ත ගමන් කරන්නේ කුමන ආකාරයටද?", q_en: "In what mode does data travel in a Telephone network?", o_si: ["Simplex", "Half-duplex", "Full-duplex", "Auto-duplex"], o_en: ["Simplex", "Half-duplex", "Full-duplex", "Auto-duplex"], a: 2 },
+            { l: 'L1', q_si: "පහත සඳහන් Physical Topologies අතරින්, මධ්‍යම උපාංගයක් (Hub/Switch) හරහා සියලුම උපාංග සම්බන්ධ වන Topology එක කුමක්ද?", q_en: "Among the following Physical Topologies, which one connects all devices through a central device (Hub/Switch)?", o_si: ["Bus Topology", "Star Topology", "Ring Topology", "Mesh Topology"], o_en: ["Bus Topology", "Star Topology", "Ring Topology", "Mesh Topology"], a: 1 },
+            { l: 'L1', q_si: "Mesh Topology එකක උපාංග (Nodes) n ප්‍රමාණයක් ඇත්නම්, අවශ්‍ය වන physical links ප්‍රමාණය සෙවීමේ සූත්‍රය කුමක්ද?", q_en: "If a Mesh Topology has 'n' nodes, what is the formula to find the number of physical links required?", o_si: ["n(n-1) / 2", "n / 2", "n(n+1) / 2", "n^2"], o_en: ["n(n-1) / 2", "n / 2", "n(n+1) / 2", "n^2"], a: 0 },
+            { l: 'L1', q_si: "LAN යන්නෙහි දිගු නාමය කුමක්ද?", q_en: "What does LAN stand for?", o_si: ["Local Area Network", "Large Area Network", "Logical Area Network", "Linked Area Network"], o_en: ["Local Area Network", "Large Area Network", "Logical Area Network", "Linked Area Network"], a: 0 },
+            { l: 'L1', q_si: "රටක් හෝ මහද්වීපයක් පුරා විහිදී ඇති ජාලයක් හඳුන්වන්නේ කෙසේද?", q_en: "How is a network that spans across a country or continent called?", o_si: ["LAN", "MAN", "WAN", "PAN"], o_en: ["LAN", "MAN", "WAN", "PAN"], a: 2 },
+            { l: 'L1', q_si: "Circuit Switching හි ප්‍රධාන ලක්ෂණයක් වන්නේ කුමක්ද?", q_en: "What is a main characteristic of Circuit Switching?", o_si: ["පණිවිඩය කුඩා කොටස් වලට කඩා යැවීම (Breaking messages into packets)", "කල්තියා මාර්ගයක් වෙන් කර තබා ගැනීම (Dedicated path reservation)", "Router වල Queue වීම (Queueing in Routers)", "වෙනස් මාර්ග හරහා දත්ත ගමන් කිරීම (Data traveling through different paths)"], o_en: ["Breaking messages into small packets", "Reserving a dedicated path in advance", "Queueing in routers", "Data traveling through different paths"], a: 1 },
+            { l: 'L1', q_si: "Packet Switching වලදී, Router එකක් තුළ පැකට්ටුවක් පිටවීමට පෙර රැඳී සිටින කාලය හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "In Packet Switching, the time a packet waits in a router before being transmitted is called?", o_si: ["Transmission delay", "Propagation delay", "Queueing delay", "Processing delay"], o_en: ["Transmission delay", "Propagation delay", "Queueing delay", "Processing delay"], a: 2 },
+            { l: 'L1', q_si: "[අමාරුයි] පැකට්ටුවක සියලුම බිට් (bits) ටික සම්ප්‍රේෂණ මාධ්‍යයට (link එකට) මුදා හැරීමට ගතවන කාලය කුමක්ද?", q_en: "[Hard] The time required to push all bits of a packet onto the transmission link is called?", o_si: ["Propagation delay", "Transmission delay", "Processing delay", "End-to-end delay"], o_en: ["Propagation delay", "Transmission delay", "Processing delay", "End-to-end delay"], a: 1 },
+            { l: 'L1', q_si: "[අමාරුයි] L දිගින් යුතු පැකට්ටුවක්, R වේගයක් (bps) ඇති මාර්ගයක යැවීමේදී Transmission Delay එක ගණනය කරන්නේ කෙසේද?", q_en: "[Hard] How do you calculate the Transmission Delay of a packet of length L over a link with transmission rate R (bps)?", o_si: ["L * R", "R / L", "L / R", "L + R"], o_en: ["L * R", "R / L", "L / R", "L + R"], a: 2 },
+            { l: 'L1', q_si: "සම්ප්‍රේෂණ මාධ්‍යය දිගේ බිට් එකක් ගමන් කිරීමට ගතවන කාලය (distance / speed) කුමක්ද?", q_en: "The time it takes for a bit to travel along the transmission medium (distance / speed) is?", o_si: ["Processing Delay", "Transmission Delay", "Queueing Delay", "Propagation Delay"], o_en: ["Processing Delay", "Transmission Delay", "Queueing Delay", "Propagation Delay"], a: 3 },
+            { l: 'L1', q_si: "පැකට්ටුවක හෙඩරය (Header) පරීක්ෂා කර බලා එය යැවිය යුතු දිශාව තීරණය කිරීමට Router එකක් ගන්නා කාලය කුමක්ද?", q_en: "The time a router takes to examine a packet's header and determine where to direct it is?", o_si: ["Processing Delay", "Transmission Delay", "Propagation Delay", "Nodal Delay"], o_en: ["Processing Delay", "Transmission Delay", "Propagation Delay", "Nodal Delay"], a: 0 },
+            { l: 'L1', q_si: "Router එකක Buffer (Queue) එක සම්පූර්ණයෙන්ම පිරී ඇති විට අලුතින් පැමිණෙන පැකට්ටුවකට කුමක් සිදුවේද?", q_en: "What happens to a newly arriving packet when a router's buffer (queue) is completely full?", o_si: ["එය නැවත හරවා යවයි (Sent back)", "එය ඉවත දමයි (Packet Loss / Dropped)", "එය විශේෂ මාර්ගයකින් යවයි (Sent via special route)", "එය අනිවාර්යයෙන්ම ගබඩා කරගනී (Stored forcibly)"], o_en: ["It is sent back", "It is dropped (Packet Loss)", "It is sent via a special route", "It is forcibly stored"], a: 1 },
+            { l: 'L1', q_si: "තත්පරයකදී යවන්නාගේ සිට ලබන්නා වෙත සාර්ථකව ගමන් කරන බිට් ප්‍රමාණය (bits/sec) හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "The rate at which bits are successfully transferred from sender to receiver (bits/sec) is called?", o_si: ["Bandwidth", "Delay", "Throughput", "Latency"], o_en: ["Bandwidth", "Delay", "Throughput", "Latency"], a: 2 },
+            { l: 'L1', q_si: "Bottleneck link එකක් යනු කුමක්ද?", q_en: "What is a Bottleneck link?", o_si: ["ජාලයේ වැඩිම වේගයක් ඇති link එක (Fastest link)", "ජාලයේ End-to-end throughput එක සීමා කරන අඩුම වේගයක් ඇති link එක (Slowest link that constrains throughput)", "Router දෙකක් අතර ඇති කෙටිම මාර්ගය (Shortest path)", "දෝෂ සහිත link එකක් (Faulty link)"], o_en: ["The link with the highest speed in the network", "The link with the lowest speed that constrains the end-to-end throughput", "The shortest path between two routers", "A faulty link in the network"], a: 1 },
+            { l: 'L1', q_si: "අන්තර්ජාලය (Internet) යනු කුමක්ද?", q_en: "What is the Internet?", o_si: ["තනි විශාල පරිගණකයක් (One large computer)", "ලොව පුරා ඇති ජාලයන්ගේ ජාලයක් (Network of networks)", "එක් රටකට පමණක් සීමා වූ ජාලයක් (Network limited to one country)", "මෘදුකාංග පද්ධතියක් (A software system)"], o_en: ["A single large computer", "A global network of networks", "A network limited to a single country", "A software system"], a: 1 },
+            { l: 'L1', q_si: "වර්තමාන අන්තර්ජාලය තුළ වැඩිපුරම භාවිතා වන Switching ක්‍රමය කුමක්ද?", q_en: "What is the most widely used switching method in today's Internet?", o_si: ["Circuit Switching", "Packet Switching", "Message Switching", "Line Switching"], o_en: ["Circuit Switching", "Packet Switching", "Message Switching", "Line Switching"], a: 1 },
+
+            // --- Lecture 2: Protocol Architecture (20 Questions) ---
+            { 
+                l: 'L2', lname_si: 'Lecture 2: Protocol Architecture', lname_en: 'Lecture 2: Protocol Architecture',
+                q_si: "Protocol එකක් යනු කුමක්ද?", q_en: "What is a Protocol?", o_si: ["පරිගණකයක ඇති දෘඩාංගයක් (Hardware)", "ජාලයක දත්ත හුවමාරු වන ආකාරය පාලනය කරන නීති මාලාවක් (Set of rules governing data communication)", "කේබල් වර්ගයක් (Cable type)", "මෘදුකාංග භාෂාවක් (Software language)"], o_en: ["Hardware in a computer", "A set of rules governing data communication in a network", "A type of cable", "A software language"], a: 1 
+            },
+            { l: 'L2', q_si: "TCP/IP ආකෘතියේ (Model) ස්තර (Layers) කීයක් තිබේද? (Standard textbook model)", q_en: "How many layers are there in the TCP/IP model? (Standard textbook model)", o_si: ["4 හෝ 5", "7", "3", "6"], o_en: ["4 or 5", "7", "3", "6"], a: 0 },
+            { l: 'L2', q_si: "OSI ආකෘතියේ (Reference Model) ස්තර (Layers) කීයක් තිබේද?", q_en: "How many layers are in the OSI Reference Model?", o_si: ["4", "5", "6", "7"], o_en: ["4", "5", "6", "7"], a: 3 },
+            { l: 'L2', q_si: "Application Layer එකේ නිර්මාණය වන දත්ත ඒකකය (PDU) හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "What is the Protocol Data Unit (PDU) created at the Application Layer called?", o_si: ["Segment", "Datagram", "Frame", "Message"], o_en: ["Segment", "Datagram", "Frame", "Message"], a: 3 },
+            { l: 'L2', q_si: "Transport Layer එක මගින් Message එකකට Header එකක් එකතු කළ පසු එය හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "When the Transport Layer adds a header to a Message, what is it called?", o_si: ["Frame", "Packet", "Segment", "Bit"], o_en: ["Frame", "Packet", "Segment", "Bit"], a: 2 },
+            { l: 'L2', q_si: "Network Layer හි PDU (Protocol Data Unit) එක කුමක්ද?", q_en: "What is the PDU of the Network Layer?", o_si: ["Segment", "Datagram (Packet)", "Frame", "Message"], o_en: ["Segment", "Datagram (Packet)", "Frame", "Message"], a: 1 },
+            { l: 'L2', q_si: "Link Layer එක මගින් නිර්මාණය කරන PDU එක කුමක්ද?", q_en: "What is the PDU created by the Link Layer?", o_si: ["Datagram", "Segment", "Frame", "Bit"], o_en: ["Datagram", "Segment", "Frame", "Bit"], a: 2 },
+            { l: 'L2', q_si: "ඉහළ ස්තරයක සිට පහළ ස්තරයකට දත්ත ගමන් කිරීමේදී Header එකතු කිරීමේ ක්‍රියාවලිය හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "What is the process of adding headers as data moves from upper to lower layers called?", o_si: ["Decapsulation", "Encryption", "Encapsulation", "Multiplexing"], o_en: ["Decapsulation", "Encryption", "Encapsulation", "Multiplexing"], a: 2 },
+            { l: 'L2', q_si: "ලබන්නාගේ (Receiver) පැත්තේදී, පහළ ස්තරයේ සිට ඉහළ ස්තරයට දත්ත යෑමේදී Header ඉවත් කිරීමේ ක්‍රියාවලිය කුමක්ද?", q_en: "At the receiver's side, what is the process of removing headers as data moves from lower to upper layers?", o_si: ["Encapsulation", "Decapsulation", "Modulation", "Demodulation"], o_en: ["Encapsulation", "Decapsulation", "Modulation", "Demodulation"], a: 1 },
+            { l: 'L2', q_si: "OSI Model එකේ ඇති නමුත් TCP/IP Model එකේ වෙනම දක්වා නැති ස්තර දෙක කුමක්ද?", q_en: "Which two layers are in the OSI Model but not distinctly represented in the TCP/IP Model?", o_si: ["Network සහ Data Link", "Presentation සහ Session", "Transport සහ Application", "Physical සහ Data Link"], o_en: ["Network & Data Link", "Presentation & Session", "Transport & Application", "Physical & Data Link"], a: 1 },
+            { l: 'L2', q_si: "Router එකක් ප්‍රධාන වශයෙන් ක්‍රියාත්මක වන්නේ කුමන ස්තරය දක්වාද?", q_en: "Up to which layer does a Router primarily operate?", o_si: ["Physical Layer", "Link Layer", "Network Layer", "Transport Layer"], o_en: ["Physical Layer", "Link Layer", "Network Layer", "Transport Layer"], a: 2 },
+            { l: 'L2', q_si: "Switch (Layer 2) එකක් ක්‍රියාත්මක වන්නේ කුමන ස්තරය දක්වාද?", q_en: "Up to which layer does a Layer 2 Switch operate?", o_si: ["Physical Layer", "Link (Data Link) Layer", "Network Layer", "Transport Layer"], o_en: ["Physical Layer", "Link (Data Link) Layer", "Network Layer", "Transport Layer"], a: 1 },
+            { l: 'L2', q_si: "පහත ඒවායින් Application Layer Protocol එකක් නොවන්නේ කුමක්ද?", q_en: "Which of the following is NOT an Application Layer Protocol?", o_si: ["HTTP", "SMTP", "TCP", "FTP"], o_en: ["HTTP", "SMTP", "TCP", "FTP"], a: 2 },
+            { l: 'L2', q_si: "Transport Layer Protocols සඳහා උදාහරණයක් වනුයේ,", q_en: "An example of Transport Layer Protocols is:", o_si: ["IPv4 සහ IPv6", "TCP සහ UDP", "Ethernet සහ WiFi", "HTTP සහ DNS"], o_en: ["IPv4 & IPv6", "TCP & UDP", "Ethernet & WiFi", "HTTP & DNS"], a: 1 },
+            { l: 'L2', q_si: "Logical Addressing (IP address) සිදු කරනු ලබන්නේ කුමන ස්තරයේදීද?", q_en: "At which layer is Logical Addressing (IP addressing) handled?", o_si: ["Link Layer", "Network Layer", "Transport Layer", "Physical Layer"], o_en: ["Link Layer", "Network Layer", "Transport Layer", "Physical Layer"], a: 1 },
+            { l: 'L2', q_si: "Physical addressing (MAC address) සිදු කරනු ලබන්නේ කුමන ස්තරයේදීද?", q_en: "At which layer is Physical addressing (MAC address) handled?", o_si: ["Network Layer", "Link Layer", "Transport Layer", "Application Layer"], o_en: ["Network Layer", "Link Layer", "Transport Layer", "Application Layer"], a: 1 },
+            { l: 'L2', q_si: "[අමාරුයි] Web Browser එකක් (උදා: Chrome) ක්‍රියාත්මක වන්නේ කුමන ස්තරයේද?", q_en: "[Hard] At which layer does a Web Browser (e.g., Chrome) operate?", o_si: ["Transport Layer", "Network Layer", "Application Layer", "Link Layer"], o_en: ["Transport Layer", "Network Layer", "Application Layer", "Link Layer"], a: 2 },
+            { l: 'L2', q_si: "TCP/IP Model එකේ අන්තර්ජාල ස්තරය (Internet Layer), OSI ආකෘතියේ කුමන ස්තරයට සමානද?", q_en: "The Internet Layer in the TCP/IP Model is equivalent to which layer in the OSI Model?", o_si: ["Data Link Layer", "Transport Layer", "Network Layer", "Session Layer"], o_en: ["Data Link Layer", "Transport Layer", "Network Layer", "Session Layer"], a: 2 },
+            { l: 'L2', q_si: "Link Layer එකේදී Frame එකට එකතු කරන කොටස් මොනවාද?", q_en: "What components are added to the Frame at the Link Layer?", o_si: ["Header පමණි (Header only)", "Trailer පමණි (Trailer only)", "Header සහ Trailer යන දෙකම (Both Header and Trailer)", "කිසිවක් එකතු නොකරයි (Nothing is added)"], o_en: ["Header only", "Trailer only", "Both Header and Trailer", "Nothing is added"], a: 2 },
+            { l: 'L2', q_si: "End-to-End communication (Host-to-Host) සහතික කරන්නේ කුමන ස්තරය මගින්ද?", q_en: "Which layer ensures End-to-End (Host-to-Host) communication?", o_si: ["Network Layer", "Transport Layer", "Link Layer", "Physical Layer"], o_en: ["Network Layer", "Transport Layer", "Link Layer", "Physical Layer"], a: 1 },
+
+            // --- Lecture 3: Physical Layer (20 Questions) ---
+            { 
+                l: 'L3', lname_si: 'Lecture 3: Physical Layer', lname_en: 'Lecture 3: Physical Layer',
+                q_si: "Physical Layer එකේ මූලික කාර්යය කුමක්ද?", q_en: "What is the primary function of the Physical Layer?", 
+                o_si: ["Error Correction", "IP Routing", "බිට් (Bits) සිග්නල් ලෙස මාධ්‍යය හරහා යැවීම (Transmitting bits as signals)", "Data Encryption"], 
+                o_en: ["Error Correction", "IP Routing", "Transmitting bits as signals over the medium", "Data Encryption"], a: 2 
+            },
+            { l: 'L3', q_si: "Digital දත්ත, Digital සිග්නල් බවට පත් කිරීම හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "Converting digital data into digital signals is called?", o_si: ["Modulation", "Encoding (Line Coding)", "Multiplexing", "Amplification"], o_en: ["Modulation", "Encoding (Line Coding)", "Multiplexing", "Amplification"], a: 1 },
+            { l: 'L3', q_si: "Digital දත්ත, Analog සිග්නල් බවට පත් කිරීම හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "Converting digital data into analog signals is called?", o_si: ["Encoding", "Demodulation", "Modulation", "Sampling"], o_en: ["Encoding", "Demodulation", "Modulation", "Sampling"], a: 2 },
+            { l: 'L3', q_si: "සිග්නලයක් දුරක් ගමන් කිරීමේදී එහි ශක්තිය (Energy) අඩුවීම හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "The loss of signal energy as it travels over a distance is called?", o_si: ["Interference", "Crosstalk", "Attenuation", "Distortion"], o_en: ["Interference", "Crosstalk", "Attenuation", "Distortion"], a: 2 },
+            { l: 'L3', q_si: "යාබදව ඇති වයර් එකකින් තවත් වයර් එකකට සිග්නල් කාන්දු වීම නිසා ඇතිවන බාධාව කුමක්ද?", q_en: "The interference caused by a signal leaking from an adjacent wire is called?", o_si: ["Attenuation", "Crosstalk", "Thermal Noise", "Dispersion"], o_en: ["Attenuation", "Crosstalk", "Thermal Noise", "Dispersion"], a: 1 },
+            { l: 'L3', q_si: "UTP කේබලයක (Unshielded Twisted Pair) වයර් යුගල වශයෙන් අඹරා (Twist) ඇත්තේ ඇයි?", q_en: "Why are the wires in a UTP cable twisted in pairs?", o_si: ["කේබලය ශක්තිමත් කිරීමට (To strengthen it)", "Crosstalk සහ Interference අවම කිරීමට (To reduce Crosstalk and Interference)", "විදුලිය ඉතිරි කිරීමට (To save power)", "ලස්සන කිරීමට (For aesthetics)"], o_en: ["To strengthen the cable", "To reduce Crosstalk and Interference", "To save power", "For aesthetics"], a: 1 },
+            { l: 'L3', q_si: "ප්‍රකාශ තන්තු (Optical Fiber) කේබල් වල දත්ත ගමන් කරන්නේ කුමන ආකාරයෙන්ද?", q_en: "In what form does data travel in Optical Fiber cables?", o_si: ["විද්‍යුත් තරංග (Electrical waves)", "ආලෝකය (Light)", "ගුවන් විදුලි තරංග (Radio waves)", "චුම්භක තරංග (Magnetic waves)"], o_en: ["Electrical waves", "Light", "Radio waves", "Magnetic waves"], a: 1 },
+            { l: 'L3', q_si: "Fiber optic වල Single-mode සහ Multi-mode අතරින් වඩාත් දුරකට දත්ත යැවිය හැක්කේ කුමන වර්ගයටද?", q_en: "Between Single-mode and Multi-mode Fiber, which can transmit data over longer distances?", o_si: ["Multi-mode", "Single-mode", "දෙකම සමානයි (Both are equal)", "කිසිවක් නොවේ (None of the above)"], o_en: ["Multi-mode", "Single-mode", "Both are equal", "None of the above"], a: 1 },
+            { l: 'L3', q_si: "Wi-Fi සහ Bluetooth තාක්ෂණයන් ක්‍රියාත්මක වන්නේ කුමන සංඛ්‍යාත පරාසයකද (Frequency bands)?", q_en: "In what frequency bands do Wi-Fi and Bluetooth technologies operate?", o_si: ["100 MHz සහ 200 MHz", "2.4 GHz සහ 5 GHz", "900 MHz පමණි", "50 GHz"], o_en: ["100 MHz and 200 MHz", "2.4 GHz and 5 GHz", "900 MHz only", "50 GHz"], a: 1 },
+            { l: 'L3', q_si: "රැහැන් රහිත (Wireless) මාධ්‍ය වලදී සිග්නල් බාධක වල වැදී විවිධ මාර්ග ඔස්සේ ග්‍රාහකයා වෙත පැමිණීම නිසා ඇතිවන දෝෂය කුමක්ද?", q_en: "The error caused in wireless media when signals bounce off obstacles and arrive at the receiver via different paths is?", o_si: ["Multipath Interference", "Crosstalk", "Thermal Noise", "White Noise"], o_en: ["Multipath Interference", "Crosstalk", "Thermal Noise", "White Noise"], a: 0 },
+            { l: 'L3', q_si: "පහත ඒවායින් Guided Media (මඟ පෙන්වන මාධ්‍ය) එකක් නොවන්නේ කුමක්ද?", q_en: "Which of the following is NOT a Guided Media?", o_si: ["Coaxial Cable", "UTP Cable", "Fiber Optic", "Free Space (Wireless)"], o_en: ["Coaxial Cable", "UTP Cable", "Fiber Optic", "Free Space (Wireless)"], a: 3 },
+            { l: 'L3', q_si: "Amplitude Shift Keying (ASK) යනු කුමක්ද?", q_en: "What is Amplitude Shift Keying (ASK)?", o_si: ["Digital දත්ත Encoding ක්‍රමයක්", "Digital දත්ත Analog කිරීමේ Modulation ක්‍රමයක්", "Error checking ක්‍රමයක්", "Cable වර්ගයක්"], o_en: ["Digital data Encoding method", "Modulation method to convert Digital data to Analog", "Error checking method", "A type of cable"], a: 1 },
+            { l: 'L3', q_si: "[අමාරුයි] Non-Return-to-Zero (NRZ) ක්‍රමයේ ඇති ප්‍රධාන දුර්වලතාවයක් කුමක්ද?", q_en: "[Hard] What is a major weakness of the Non-Return-to-Zero (NRZ) method?", o_si: ["බිට් රේට් එක අඩු වීම (Low bit rate)", "දිගින් දිගටම 1 හෝ 0 පැමිණි විට සින්ක්‍රොනයිස් (Synchronization) වීම අපහසු වීම", "වෝල්ටීයතාවය වැඩි වීම (High voltage)", "කේබල් රත් වීම (Cable heating)"], o_en: ["Low bit rate", "Synchronization is difficult when there is a long sequence of 1s or 0s", "High voltage", "Cable heating"], a: 1 },
+            { l: 'L3', q_si: "පරිගණකයක ජාලයට සම්බන්ධ වීමට ඇති භෞතික උපාංගය කුමක්ද?", q_en: "What is the physical device in a computer used to connect to a network?", o_si: ["RAM", "NIC (Network Interface Card)", "CPU", "VGA Card"], o_en: ["RAM", "NIC (Network Interface Card)", "CPU", "VGA Card"], a: 1 },
+            { l: 'L3', q_si: "තරංගයක වාර ගණන (Frequency) වෙනස් කිරීම මගින් දත්ත යැවීම කුමක්ද?", q_en: "Sending data by changing the frequency of the carrier wave is called?", o_si: ["ASK", "FSK (Frequency Shift Keying)", "PSK", "QAM"], o_en: ["ASK", "FSK (Frequency Shift Keying)", "PSK", "QAM"], a: 1 },
+            { l: 'L3', q_si: "LAN එකක් තුළ බහුලවම භාවිතා වන කේබල් වර්ගය කුමක්ද?", q_en: "What is the most commonly used cable type in a LAN?", o_si: ["Coaxial", "UTP (Cat5e / Cat6)", "Single-mode Fiber", "Serial Cables"], o_en: ["Coaxial", "UTP (Cat5e / Cat6)", "Single-mode Fiber", "Serial Cables"], a: 1 },
+            { l: 'L3', q_si: "IrDA (Infrared) තාක්ෂණයේ ඇති ප්‍රධාන සීමාව කුමක්ද?", q_en: "What is the main limitation of IrDA (Infrared) technology?", o_si: ["වේගය ඉතා වැඩියි", "Line of sight (කෙලින් පෙනෙන මානයක) තිබිය යුතුයි", "බිත්ති හරහා ගමන් කරයි", "කිලෝමීටර ගණනක් දුරට යැවිය හැක"], o_en: ["Speed is too high", "Requires a clear Line of Sight", "It passes through walls", "Can transmit over kilometers"], a: 1 },
+            { l: 'L3', q_si: "Bluetooth මගින් නිර්මාණය වන කුඩා ජාලය හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "The small network created by Bluetooth is known as?", o_si: ["WAN", "MAN", "PAN (Personal Area Network)", "SAN"], o_en: ["WAN", "MAN", "PAN (Personal Area Network)", "SAN"], a: 2 },
+            { l: 'L3', q_si: "Wireless සන්නිවේදනයේදී තරංග සම්ප්‍රේෂණයට හා ග්‍රහණයට භාවිතා කරන උපාංගය කුමක්ද?", q_en: "What is the device used for transmitting and receiving waves in wireless communication?", o_si: ["Switch", "Router", "Antenna (ඇන්ටනාව)", "Hub"], o_en: ["Switch", "Router", "Antenna", "Hub"], a: 2 },
+            { l: 'L3', q_si: "Coaxial කේබලයක පිටතින් ඇති තඹ දැලෙහි (Braided shield) අරමුණ කුමක්ද?", q_en: "What is the purpose of the braided copper shield on the outside of a Coaxial cable?", o_si: ["කේබලය ලස්සන කිරීම", "Interference සහ Crosstalk වලින් ආරක්ෂා කිරීම", "අමතර දත්ත යැවීම", "කේබලය නැමීම පහසු කිරීම"], o_en: ["To make the cable look good", "To protect against Interference and Crosstalk", "To send extra data", "To make it easy to bend"], a: 1 },
+
+            // --- Lecture 4: Link Layer (20 Questions) ---
+            { 
+                l: 'L4', lname_si: 'Lecture 4: Link Layer', lname_en: 'Lecture 4: Link Layer',
+                q_si: "Link Layer එකේ ප්‍රධාන කාර්යයක් වනුයේ කුමක්ද?", q_en: "What is a main function of the Link Layer?", 
+                o_si: ["IP address ලබා දීම", "යාබද නෝඩ් දෙකක් (Adjacent nodes) අතර Frame යැවීම", "මාර්ගය සොයා ගැනීම (Routing)", "Application ක්‍රියාත්මක කිරීම"], 
+                o_en: ["Providing IP addresses", "Transferring Frames between adjacent nodes", "Routing", "Running Applications"], a: 1 
+            },
+            { l: 'L4', q_si: "MAC Address එකක් බිට් (bits) කීයකින් සමන්විතද?", q_en: "How many bits are in a MAC Address?", o_si: ["32 bits", "48 bits", "64 bits", "128 bits"], o_en: ["32 bits", "48 bits", "64 bits", "128 bits"], a: 1 },
+            { l: 'L4', q_si: "MAC Address එකක් නිරූපණය කරන්නේ කුමන සංඛ්‍යා පද්ධතියෙන්ද?", q_en: "Which number system is used to represent a MAC Address?", o_si: ["Binary", "Decimal", "Hexadecimal", "Octal"], o_en: ["Binary", "Decimal", "Hexadecimal", "Octal"], a: 2 },
+            { l: 'L4', q_si: "පහත ඒවායින් නිවැරදි MAC Address ආකෘතියක් කුමක්ද?", q_en: "Which of the following is a valid MAC Address format?", o_si: ["192.168.1.1", "1A-2F-BB-76-09-AD", "user@domain.com", "http://www.sliit.lk"], o_en: ["192.168.1.1", "1A-2F-BB-76-09-AD", "user@domain.com", "http://www.sliit.lk"], a: 1 },
+            { l: 'L4', q_si: "Ethernet ජාල වලදී උපාංග දෙකක් එකවර දත්ත යැවීමට උත්සාහ කළහොත් ඇතිවන තත්ත්වය කුමක්ද?", q_en: "What happens in an Ethernet network if two devices try to transmit data at exactly the same time?", o_si: ["Multiplexing", "Collision (ගැටීම)", "Handshake", "Attenuation"], o_en: ["Multiplexing", "Collision", "Handshake", "Attenuation"], a: 1 },
+            { l: 'L4', q_si: "Wired Ethernet (802.3) වල Collisions පාලනය කිරීමට භාවිතා කරන ක්‍රමය (Protocol) කුමක්ද?", q_en: "Which protocol is used to control Collisions in Wired Ethernet (802.3)?", o_si: ["CSMA/CA", "CSMA/CD", "ALOHA", "Token Passing"], o_en: ["CSMA/CA", "CSMA/CD", "ALOHA", "Token Passing"], a: 1 },
+            { l: 'L4', q_si: "CSMA/CD හි 'CD' යන්නෙන් අදහස් වන්නේ කුමක්ද?", q_en: "What does 'CD' stand for in CSMA/CD?", o_si: ["Carrier Detect", "Collision Detection", "Control Data", "Computer Design"], o_en: ["Carrier Detect", "Collision Detection", "Control Data", "Computer Design"], a: 1 },
+            { l: 'L4', q_si: "Wi-Fi (Wireless LAN / 802.11) වලදී Collisions පාලනය කිරීමට භාවිතා කරන්නේ කුමක්ද?", q_en: "Which method is used to manage collisions in Wi-Fi (Wireless LAN / 802.11)?", o_si: ["CSMA/CD", "CSMA/CA", "TDMA", "CDMA"], o_en: ["CSMA/CD", "CSMA/CA", "TDMA", "CDMA"], a: 1 },
+            { l: 'L4', q_si: "CSMA/CA හි 'CA' යන්නෙන් අදහස් වන්නේ කුමක්ද?", q_en: "What does 'CA' stand for in CSMA/CA?", o_si: ["Collision Avoidance", "Carrier Access", "Computer Architecture", "Collision Analysis"], o_en: ["Collision Avoidance", "Carrier Access", "Computer Architecture", "Collision Analysis"], a: 0 },
+            { l: 'L4', q_si: "Link Layer Switch එකක් තීරණ ගන්නේ (Forwarding decisions) කුමක් පදනම් කරගෙනද?", q_en: "On what basis does a Link Layer Switch make its forwarding decisions?", o_si: ["Destination IP address", "Destination MAC address", "Source IP address", "Port Number"], o_en: ["Destination IP address", "Destination MAC address", "Source IP address", "Port Number"], a: 1 },
+            { l: 'L4', q_si: "Switch එකක් MAC address ඉගෙන ගන්නේ (Address Learning) කෙසේද?", q_en: "How does a Switch learn MAC addresses (Address Learning)?", o_si: ["Administrator කෙනෙක් ඇතුලත් කිරීමෙන්", "පැමිණෙන Frame වල Source MAC address පරීක්ෂා කිරීමෙන්", "Internet එකෙන්", "Router එකෙන් අසා දැනගැනීමෙන්"], o_en: ["Entered by an Administrator", "By examining the Source MAC address of incoming frames", "From the Internet", "By asking the Router"], a: 1 },
+            { l: 'L4', q_si: "Destination MAC Address එක 'FF-FF-FF-FF-FF-FF' වූ විට එයින් අදහස් වන්නේ කුමක්ද?", q_en: "What does it mean when the Destination MAC Address is 'FF-FF-FF-FF-FF-FF'?", o_si: ["එය වැරදි ලිපිනයකි", "එය Router එකේ ලිපිනයයි", "එය Broadcast Address එකයි (සියලු දෙනාටම)", "එය Loopback address එකයි"], o_en: ["It is an invalid address", "It is the Router's address", "It is the Broadcast Address (to everyone)", "It is a Loopback address"], a: 2 },
+            { l: 'L4', q_si: "VLAN (Virtual LAN) එකක ප්‍රධාන වාසියක් කුමක්ද?", q_en: "What is a main advantage of a VLAN (Virtual LAN)?", o_si: ["Switch වේගය වැඩි කිරීම", "තනි භෞතික Switch එකක් තර්කානුකූලව (Logically) ජාල කිහිපයකට වෙන් කිරීම", "කේබල් අවශ්‍ය නොවීම", "IP address එකක් අවශ්‍ය නොවීම"], o_en: ["Increases Switch speed", "Logically dividing a single physical switch into multiple networks", "No cables required", "No IP address required"], a: 1 },
+            { l: 'L4', q_si: "[අමාරුයි] Switch දෙකක් අතර VLAN කිහිපයක දත්ත ගෙනයාම සඳහා භාවිතා කරන Link එක කුමක්ද?", q_en: "[Hard] What is the type of Link used between two switches to carry traffic for multiple VLANs?", o_si: ["Access Link", "Trunk Link", "Point-to-Point Link", "Wireless Link"], o_en: ["Access Link", "Trunk Link", "Point-to-Point Link", "Wireless Link"], a: 1 },
+            { l: 'L4', q_si: "VLAN Trunking වලදී Frame එක කුමන VLAN එකට අයත්දැයි හඳුනාගැනීමට එකතු කරන්නේ කුමක්ද?", q_en: "In VLAN Trunking, what is added to identify which VLAN a frame belongs to?", o_si: ["IP Header", "802.1Q VLAN Tag", "New MAC address", "Parity Bit"], o_en: ["IP Header", "802.1Q VLAN Tag", "New MAC address", "Parity Bit"], a: 1 },
+            { l: 'L4', q_si: "Wi-Fi ජාලයක Access Point (AP) එකක් සහ එයට සම්බන්ධ වූ උපාංග සමූහය හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "An Access Point (AP) and the set of wireless devices connected to it in a Wi-Fi network is called?", o_si: ["BSS (Basic Service Set)", "ESS (Extended Service Set)", "LAN", "WAN"], o_en: ["BSS (Basic Service Set)", "ESS (Extended Service Set)", "LAN", "WAN"], a: 0 },
+            { l: 'L4', q_si: "Access Point එකක් නොමැතිව උපාංග එකිනෙක කෙලින්ම සම්බන්ධ වන Wi-Fi ක්‍රමය කුමක්ද?", q_en: "What is the Wi-Fi mode where devices connect directly to each other without an Access Point?", o_si: ["Infrastructure BSS", "Ad-hoc BSS (Independent BSS)", "Trunking", "Roaming"], o_en: ["Infrastructure BSS", "Ad-hoc BSS (Independent BSS)", "Trunking", "Roaming"], a: 1 },
+            { l: 'L4', q_si: "Wireless ජාල වලදී උපාංගයකට එකවර සම්ප්‍රේෂණය (Transmit) කිරීමට සහ ග්‍රහණය (Receive) කිරීමට නොහැකි වන්නේ ඇයි?", q_en: "Why can't a device transmit and receive simultaneously in wireless networks?", o_si: ["බැටරි බහින නිසා", "එහිම සිග්නලය ඉතා ප්‍රබල නිසා (Weak received signal vs High transmitted signal)", "නීතියෙන් තහනම් නිසා", "Antenna එකක් නැති නිසා"], o_en: ["Drains battery too fast", "Because its own transmitted signal is too strong compared to the weak received signal", "It is legally prohibited", "It lacks an antenna"], a: 1 },
+            { l: 'L4', q_si: "[අමාරුයි] CSMA/CD ක්‍රමයේදී ගැටීමක් (Collision) හඳුනාගත් පසු උපාංග කරන්නේ කුමක්ද?", q_en: "[Hard] In CSMA/CD, what do devices do after detecting a collision?", o_si: ["වහාම නැවත දත්ත යවයි", "Jam signal එකක් යවා අහඹු කාලයක් (Random backoff time) බලා සිටී", "Router එකට දැනුම් දෙයි", "පරිගණකය Restart වෙයි"], o_en: ["Immediately retransmit the data", "Send a Jam signal and wait for a random backoff time", "Inform the Router", "The computer restarts"], a: 1 },
+            { l: 'L4', q_si: "Switch එකකට Destination MAC address එක තමන්ගේ MAC Table එකේ නොමැති Frame එකක් ලැබුණු විට එය කරන්නේ කුමක්ද?", q_en: "What does a Switch do when it receives a frame whose Destination MAC Address is not in its MAC Table?", o_si: ["Frame එක Drop කරයි", "Frame එක පැමිණි Port එක හැර අනෙකුත් සියලුම Port වලින් පිට කරයි (Flooding)", "Source එකට ආපසු යවයි", "Error පණිවිඩයක් යවයි"], o_en: ["Drops the frame", "Forwards the frame out of all ports except the one it arrived on (Flooding)", "Sends it back to the source", "Sends an error message"], a: 1 },
+
+            // --- Lecture 5: Network Layer & IP (20 Questions) ---
+            { 
+                l: 'L5', lname_si: 'Lecture 5: Network Layer / IP', lname_en: 'Lecture 5: Network Layer / IP',
+                q_si: "Network Layer හි මූලික කාර්යයන් දෙක කුමක්ද?", q_en: "What are the two core functions of the Network Layer?", 
+                o_si: ["Error Checking & MAC addressing", "Routing & Forwarding", "Modulation & Encoding", "Framing & Switching"], 
+                o_en: ["Error Checking & MAC addressing", "Routing & Forwarding", "Modulation & Encoding", "Framing & Switching"], a: 1 
+            },
+            { l: 'L5', q_si: "IPv4 ලිපිනයක් බිට් (bits) කීයකින් සමන්විතද?", q_en: "How many bits make up an IPv4 address?", o_si: ["16 bits", "32 bits", "48 bits", "128 bits"], o_en: ["16 bits", "32 bits", "48 bits", "128 bits"], a: 1 },
+            { l: 'L5', q_si: "IPv4 ලිපිනයක් සාමාන්‍යයෙන් ලියනු ලබන්නේ කුමන ආකෘතියකින්ද?", q_en: "In what format is an IPv4 address typically written?", o_si: ["Dotted-decimal (උදා: 192.168.1.1)", "Hexadecimal (උදා: AB-CD...)", "Binary (උදා: 101010...)", "Text (උදා: my.ip)"], o_en: ["Dotted-decimal (e.g., 192.168.1.1)", "Hexadecimal (e.g., AB-CD...)", "Binary (e.g., 101010...)", "Text (e.g., my.ip)"], a: 0 },
+            { l: 'L5', q_si: "IPv4 හි Class C IP ලිපිනයක් පටන් ගන්නේ කුමන පරාසයකින්ද?", q_en: "Which range does a Class C IPv4 address start with?", o_si: ["1 - 126", "128 - 191", "192 - 223", "224 - 239"], o_en: ["1 - 126", "128 - 191", "192 - 223", "224 - 239"], a: 2 },
+            { l: 'L5', q_si: "Class A IP ලිපිනයක Network ID එක සඳහා වෙන් කර ඇති බිට් (bits) ප්‍රමාණය කොපමණද?", q_en: "How many bits are allocated for the Network ID in a Class A IP address?", o_si: ["8 bits", "16 bits", "24 bits", "32 bits"], o_en: ["8 bits", "16 bits", "24 bits", "32 bits"], a: 0 },
+            { l: 'L5', q_si: "IP Address එකක් කොටස් දෙකකට බෙදිය හැක. ඒ මොනවාද?", q_en: "An IP address is split into two parts. What are they?", o_si: ["MAC ID & Network ID", "Network ID & Host ID", "Router ID & Switch ID", "Class ID & Subnet ID"], o_en: ["MAC ID & Network ID", "Network ID & Host ID", "Router ID & Switch ID", "Class ID & Subnet ID"], a: 1 },
+            { l: 'L5', q_si: "[අමාරුයි] 192.168.1.0/24 ජාලයේ (Network) උපරිම Host පරිගණක කීයකට IP ලිපින ලබා දිය හැකිද?", q_en: "[Hard] What is the maximum number of hosts that can be assigned an IP in the 192.168.1.0/24 network?", o_si: ["256", "255", "254", "128"], o_en: ["256", "255", "254", "128"], a: 2 },
+            { l: 'L5', q_si: "[අමාරුයි] Subnet Mask එකක් 255.255.255.0 නම්, එහි CIDR notation එක කුමක්ද?", q_en: "[Hard] If a Subnet Mask is 255.255.255.0, what is its CIDR notation?", o_si: ["/8", "/16", "/24", "/32"], o_en: ["/8", "/16", "/24", "/32"], a: 2 },
+            { l: 'L5', q_si: "Subnetting යනු කුමක්ද?", q_en: "What is Subnetting?", o_si: ["MAC ලිපින සෑදීම", "විශාල IP Network එකක් කුඩා ජාල (Subnets) වලට බෙදීම", "ජාලයේ වේගය වැඩි කිරීම", "Router එකක් Switch එකක් බවට පත් කිරීම"], o_en: ["Creating MAC addresses", "Dividing a large IP Network into smaller networks (Subnets)", "Increasing network speed", "Turning a router into a switch"], a: 1 },
+            { l: 'L5', q_si: "IP Datagram එකක් විශාල වැඩි නම්, Router එකක් මගින් එය කුඩා කොටස් වලට කැඩීම හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "If an IP Datagram is too large, the process of a router breaking it into smaller pieces is called?", o_si: ["Multiplexing", "Fragmentation", "Encapsulation", "Compression"], o_en: ["Multiplexing", "Fragmentation", "Encapsulation", "Compression"], a: 1 },
+            { l: 'L5', q_si: "NAT (Network Address Translation) හි ප්‍රධාන ප්‍රයෝජනය කුමක්ද?", q_en: "What is a main benefit of NAT (Network Address Translation)?", o_si: ["MAC Address වෙනස් කිරීම", "Private IP ලිපින සහිත ජාලයකට තනි Public IP ලිපිනයක් හරහා අන්තර්ජාලයට පිවිසීමට ඉඩ දීම", "ජාලය වේගවත් කිරීම", "වයිරස් වලින් ආරක්ෂා කිරීම"], o_en: ["Changing MAC addresses", "Allowing a network with Private IPs to access the internet via a single Public IP", "Speeding up the network", "Protecting against viruses"], a: 1 },
+            { l: 'L5', q_si: "ICMP protocol එක බහුලවම භාවිතා වන්නේ කුමක් සඳහාද?", q_en: "What is the ICMP protocol most commonly used for?", o_si: ["Web පිටු බැලීමට", "File යැවීමට", "Error reporting සහ ජාල දෝෂ සෙවීමට (උදා: ping)", "MAC address සෙවීමට"], o_en: ["Browsing web pages", "Sending files", "Error reporting and network troubleshooting (e.g., ping)", "Finding MAC addresses"], a: 2 },
+            { l: 'L5', q_si: "IP address එකක් දන්නා විට, අදාළ උපාංගයේ MAC address එක සොයා ගැනීමට භාවිතා කරන Protocol එක කුමක්ද?", q_en: "When the IP address is known, which Protocol is used to find the corresponding MAC address of a device?", o_si: ["DNS", "DHCP", "ARP (Address Resolution Protocol)", "ICMP"], o_en: ["DNS", "DHCP", "ARP (Address Resolution Protocol)", "ICMP"], a: 2 },
+            { l: 'L5', q_si: "IPv4 Header එකේ ඇති 'TTL (Time To Live)' field එකේ අරමුණ කුමක්ද?", q_en: "What is the purpose of the 'TTL (Time To Live)' field in the IPv4 Header?", o_si: ["පැකට්ටුවේ වේගය පාලනය කිරීම", "පැකට්ටුව අන්තර්ජාලයේ සදහටම කැරකීම (Looping) වැළැක්වීම", "ආරක්ෂාව තහවුරු කිරීම", "දත්ත වල කාලය සටහන් කිරීම"], o_en: ["To control the packet's speed", "To prevent the packet from looping infinitely in the internet", "To ensure security", "To timestamp the data"], a: 1 },
+            { l: 'L5', q_si: "[අමාරුයි] 172.16.0.0 යනු කුමන පන්තියට (Class) අයත් IP ලිපිනයක්ද?", q_en: "[Hard] 172.16.0.0 belongs to which IP Address Class?", o_si: ["Class A", "Class B", "Class C", "Class D"], o_en: ["Class A", "Class B", "Class C", "Class D"], a: 1 },
+            { l: 'L5', q_si: "[අමාරුයි] යම් ආයතනයකට Subnet 4ක් අවශ්‍ය නම්, Host කොටසින් කොපමණ බිට් (bits) ප්‍රමාණයක් Borrow කළ යුතුද?", q_en: "[Hard] If an organization needs 4 Subnets, how many bits must be borrowed from the Host portion?", o_si: ["1 bit", "2 bits (2^2 = 4)", "3 bits", "4 bits"], o_en: ["1 bit", "2 bits (2^2 = 4)", "3 bits", "4 bits"], a: 1 },
+            { l: 'L5', q_si: "පහත දැක්වෙන IP ලිපින වලින් Private IP ලිපිනයක් කුමක්ද?", q_en: "Which of the following is a Private IP address?", o_si: ["8.8.8.8", "192.168.1.10", "17.253.144.10", "203.0.113.5"], o_en: ["8.8.8.8", "192.168.1.10", "17.253.144.10", "203.0.113.5"], a: 1 },
+            { l: 'L5', q_si: "Ping කමාන්ඩ් එක ක්‍රියාත්මක වීමට පිටුපසින් ක්‍රියාත්මක වන Protocol එක කුමක්ද?", q_en: "What protocol operates behind the scenes for the Ping command to work?", o_si: ["TCP", "UDP", "ICMP", "ARP"], o_en: ["TCP", "UDP", "ICMP", "ARP"], a: 2 },
+            { l: 'L5', q_si: "ARP Request එකක් යවනු ලබන්නේ කුමන ආකාරයටද?", q_en: "In what transmission mode is an ARP Request sent?", o_si: ["Unicast", "Multicast", "Broadcast (FF:FF:FF:FF:FF:FF)", "Anycast"], o_en: ["Unicast", "Multicast", "Broadcast (FF:FF:FF:FF:FF:FF)", "Anycast"], a: 2 },
+            { l: 'L5', q_si: "[අමාරුයි] Router එකක Forwarding Table එකේ ගබඩා කර ඇත්තේ මොනවාද?", q_en: "[Hard] What is stored in a Router's Forwarding Table?", o_si: ["සියලුම පරිගණක වල නම", "IP Address ranges (Subnets) සහ ඒවා යා යුතු Output ports", "MAC addresses පමණි", "Usernames සහ Passwords"], o_en: ["Names of all computers", "IP Address ranges (Subnets) and their corresponding output ports", "MAC addresses only", "Usernames and Passwords"], a: 1 },
+
+            // --- Lab Practicals (30 Questions) ---
+            { l: 'Lab', lname_si: 'ලැබ් ප්‍රායෝගික (Lab Practicals)', lname_en: 'Lab Practicals', q_si: "Packet Tracer මෘදුකාංගයේ Hub එකක් ක්‍රියා කරන ආකාරය කුමක්ද?", q_en: "How does a Hub function in Packet Tracer?", o_si: ["ලැබෙන සියලුම පැකට් අනෙක් සියලුම port වලින් පිට කරයි", "ගමනාන්තයට පමණක් යවයි", "පැකට් විනාශ කරයි", "Router එකට පමණක් යවයි"], o_en: ["Broadcasts received packets to all other ports", "Sends only to the destination", "Destroys packets", "Sends only to the Router"], a: 0 },
+            { l: 'Lab', q_si: "Packet Tracer හි Switch එකක් ක්‍රියා කරන ආකාරය Hub එකකට වඩා වෙනස් වන්නේ කෙසේද?", q_en: "How is a Switch different from a Hub in Packet Tracer?", o_si: ["එය වේගයෙන් ක්‍රියා නොකරයි", "අදාළ ගමනාන්තයට (Destination) පමණක් පැකට්ටුව යවයි", "සියලුම port වලට පැකට් යවයි", "MAC ලිපින භාවිතා නොකරයි"], o_en: ["It does not work fast", "Sends the packet only to the intended destination", "Sends packets to all ports", "Does not use MAC addresses"], a: 1 },
+            { l: 'Lab', q_si: "ජාලයක පැකට් ගමන් කරන ආකාරය පියවරෙන් පියවර බැලීම සඳහා Packet Tracer හි භාවිතා කරන Mode එක කුමක්ද?", q_en: "Which mode in Packet Tracer is used to view packet flow step-by-step?", o_si: ["Realtime Mode", "Simulation Mode", "Physical Mode", "Logical Mode"], o_en: ["Realtime Mode", "Simulation Mode", "Physical Mode", "Logical Mode"], a: 1 },
+            { l: 'Lab', q_si: "Ping විධානය (command) මඟින් මූලිකවම භාවිතා කරන ප්‍රොටෝකෝලය කුමක්ද?", q_en: "Which protocol is primarily used by the Ping command?", o_si: ["TCP", "UDP", "ICMP", "HTTP"], o_en: ["TCP", "UDP", "ICMP", "HTTP"], a: 2 },
+            { l: 'Lab', q_si: "Packet Tracer හි අලුත් උපාංගයක් (Device) එකතු කිරීමේදී, ඒ සඳහා සුදුසු NIC (Network Interface Card) එකක් තෝරාගැනීම අනිවාර්යද?", q_en: "Is it mandatory to select an appropriate NIC when adding a new device in Packet Tracer?", o_si: ["නැත, ඕනෑම එකක් ගැලපේ", "ඔව්, මාධ්‍යයට (Medium) සහ වේගයට ගැලපෙන පරිදි වෙනස් කළ යුතුය", "NIC එකක් අවශ්‍ය නොවේ", "Wireless ජාල වලට පමණක් අනිවාර්ය වේ"], o_en: ["No, any NIC works", "Yes, it must match the medium and speed", "A NIC is not needed", "Only mandatory for wireless networks"], a: 1 },
+            { l: 'Lab', q_si: "Wireshark මෘදුකාංගයේ ප්‍රධාන කාර්යය කුමක්ද?", q_en: "What is the main function of Wireshark?", o_si: ["වයිරස් ඉවත් කිරීම", "ජාලය හරහා ගමන් කරන පැකට් ග්‍රහණය කර විශ්ලේෂණය කිරීම (Packet analysis)", "IP ලිපින සැකසීම", "Wi-Fi වේගය වැඩි කිරීම"], o_en: ["Removing viruses", "Capturing and analyzing network packets (Packet analysis)", "Configuring IP addresses", "Increasing Wi-Fi speed"], a: 1 },
+            { l: 'Lab', q_si: "Web Browser එකක් සහ Web Server එකක් අතර සන්නිවේදනය Wireshark හි නිරීක්ෂණය කරන විට, බහුලවම දැකිය හැකි ප්‍රොටෝකෝල මොනවාද?", q_en: "When observing communication between a Web Browser and Web Server in Wireshark, what are the most common protocols seen?", o_si: ["HTTP සහ TCP", "FTP සහ UDP", "ICMP සහ ARP", "SMTP සහ POP3"], o_en: ["HTTP and TCP", "FTP and UDP", "ICMP and ARP", "SMTP and POP3"], a: 0 },
+            { l: 'Lab', q_si: "TCP Connection එකක් ආරම්භ කිරීමේදී (3-way handshake) හුවමාරු වන පළමු පණිවිඩය කුමක්ද?", q_en: "What is the first message exchanged when initiating a TCP connection (3-way handshake)?", o_si: ["ACK", "SYN", "FIN", "SYN-ACK"], o_en: ["ACK", "SYN", "FIN", "SYN-ACK"], a: 1 },
+            { l: 'Lab', q_si: "HTTP Response කේතයක් වන '200 OK' යන්නෙන් අදහස් වන්නේ කුමක්ද?", q_en: "What does the HTTP Response code '200 OK' mean?", o_si: ["ඉල්ලීම සාර්ථකයි (Request successful)", "සර්වර් දෝෂයක් (Server error)", "ගොනුව හමු නොවීය (Not found)", "අනවසර පිවිසුමක් (Unauthorized)"], o_en: ["Request successful", "Server error", "File not found", "Unauthorized access"], a: 0 },
+            { l: 'Lab', q_si: "HTTP Response කේතයක් වන '404 Not Found' යන්නෙන් අදහස් වන්නේ කුමක්ද?", q_en: "What does the HTTP Response code '404 Not Found' mean?", o_si: ["ඉල්ලීම සාර්ථකයි", "සර්වර් එක ක්‍රියා විරහිතයි", "ඉල්ලන ලද ගොනුව හෝ පිටුව සොයාගත නොහැක", "මුරපදය වැරදියි"], o_en: ["Request successful", "Server is down", "Requested file or page cannot be found", "Incorrect password"], a: 2 },
+            { l: 'Lab', q_si: "පරිගණකයක් සහ Switch එකක් අතර Link එකක Duplex Mode එක '100/full' ලෙස සකසා ඇත්නම්, ඉන් අදහස් වන්නේ කුමක්ද?", q_en: "If a link's Duplex Mode between a PC and a Switch is set to '100/full', what does it mean?", o_si: ["100Mbps වේගයකින් එක් දිශාවකට පමණක් දත්ත යැවිය හැක", "100Mbps වේගයකින් එකවර දත්ත යැවීමට සහ ලබාගැනීමට හැකිය", "1000Mbps වේගයකින් දත්ත යැවිය හැක", "දත්ත යැවීම කළ නොහැක"], o_en: ["Can transmit in one direction only at 100Mbps", "Can transmit and receive simultaneously at 100Mbps", "Can transmit at 1000Mbps", "Cannot transmit data"], a: 1 },
+            { l: 'Lab', q_si: "Hub එකක් භාවිතා කරන Link එකක් සඳහා වඩාත් සුදුසු Duplex mode එක කුමක්ද?", q_en: "What is the most appropriate duplex mode for a link connected to a Hub?", o_si: ["Full Duplex", "Half Duplex", "Simplex", "Auto-negotiate to Full"], o_en: ["Full Duplex", "Half Duplex", "Simplex", "Auto-negotiate to Full"], a: 1 },
+            { l: 'Lab', q_si: "Fiber optic කේබලයක් මඟින් සම්බන්ධ කළ යුතු උපාංගයකට Packet Tracer හි ලබා දිය යුතු අතුරුමුහුණත (Interface) කුමක්ද?", q_en: "What interface should be provided in Packet Tracer for a device connected via a Fiber optic cable?", o_si: ["FastEthernet (Copper)", "Gigabit Ethernet (Fiber) NIC", "Serial Interface", "Wireless Antenna"], o_en: ["FastEthernet (Copper)", "Gigabit Ethernet (Fiber) NIC", "Serial Interface", "Wireless Antenna"], a: 1 },
+            { l: 'Lab', q_si: "IEEE 802.11ac ප්‍රමිතියට අයත් වන්නේ පහත කුමන තාක්ෂණයද?", q_en: "Which technology belongs to the IEEE 802.11ac standard?", o_si: ["Wired Ethernet", "Fiber Optics", "Wi-Fi 6 (Wireless)", "Bluetooth"], o_en: ["Wired Ethernet", "Fiber Optics", "Wi-Fi 6 (Wireless)", "Bluetooth"], a: 2 },
+            { l: 'Lab', q_si: "Switch එකක MAC address table එක හිස්ව ඇති විටක, අලුතින් frame එකක් පැමිණියහොත් කුමක් සිදුවේද?", q_en: "What happens when a new frame arrives at a Switch and its MAC address table is empty?", o_si: ["Frame එක මකා දමයි", "එය පැමිණි port එක හැර අනෙකුත් සියලුම port වලින් පිට කරයි (Flooding)", "එය Router එකට යවයි", "MAC ලිපිනය අන්තර්ජාලයෙන් සොයයි"], o_en: ["Drops the frame", "Forwards out of all ports except the incoming port (Flooding)", "Sends it to the Router", "Searches the MAC address on the internet"], a: 1 },
+            { l: 'Lab', q_si: "ipconfig විධානය (command) මඟින් පෙන්වන තොරතුරක් නොවන්නේ කුමක්ද?", q_en: "Which of the following is NOT shown by the ipconfig command?", o_si: ["IP Address", "Subnet Mask", "Default Gateway", "Switch එකේ MAC address එක"], o_en: ["IP Address", "Subnet Mask", "Default Gateway", "Switch's MAC address"], a: 3 },
+            { l: 'Lab', q_si: "VLAN එකක මූලික අරමුණ කුමක්ද?", q_en: "What is the primary purpose of a VLAN?", o_si: ["ජාලයේ වේගය 1000Mbps දක්වා වැඩි කිරීම", "එකම භෞතික (Physical) Switch එකක ඇති උපාංග තර්කානුකූලව (Logically) ජාල කිහිපයකට වෙන් කිරීම", "කේබල් භාවිතය සම්පූර්ණයෙන්ම නැවැත්වීම", "Public IP ලබා ගැනීම"], o_en: ["Increase network speed to 1000Mbps", "Logically dividing devices on a single physical switch into multiple networks", "Completely stop using cables", "Obtaining Public IPs"], a: 1 },
+            { l: 'Lab', q_si: "Router එකක් භාවිතා කර VLAN කිහිපයක් අතර සන්නිවේදනය කිරීම හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "What is communication between multiple VLANs using a Router called?", o_si: ["Intra-VLAN Routing", "Inter-VLAN Routing", "VLAN Trunking", "VLAN Flooding"], o_en: ["Intra-VLAN Routing", "Inter-VLAN Routing", "VLAN Trunking", "VLAN Flooding"], a: 1 },
+            { l: 'Lab', q_si: "Inter-VLAN Routing සඳහා Router එකේ භෞතික (Physical) අතුරුමුහුණතක් (Interface) කොටස් කිහිපයකට බෙදීම හඳුන්වන්නේ කුමක් ලෙසද?", q_en: "What is dividing a Router's physical interface into multiple parts for Inter-VLAN Routing called?", o_si: ["Sub-interfaces නිර්මාණය කිරීම", "Port Security", "Subnetting", "Multiplexing"], o_en: ["Creating Sub-interfaces", "Port Security", "Subnetting", "Multiplexing"], a: 0 },
+            { l: 'Lab', q_si: "Router එකක sub-interface එකකට IP address එකක් ලබා දීමට පෙර අනිවාර්යයෙන්ම කළ යුත්තේ කුමක්ද?", q_en: "What must be done before assigning an IP address to a router's sub-interface?", o_si: ["no shutdown විධානය දීම", "encapsulation dot1Q විධානය ලබා දීම", "Router එක Restart කිරීම", "Switch එකට Ping කිරීම"], o_en: ["Issue no shutdown command", "Issue encapsulation dot1Q command", "Restart the router", "Ping the switch"], a: 1 },
+            { l: 'Lab', q_si: "Switch එකක ඇති port එකක් යම් VLAN එකකට (උදා: VLAN 50) ඇතුළත් කිරීමට භාවිතා කරන විධානය (command) කුමක්ද?", q_en: "Which command is used to assign a switch port to a specific VLAN (e.g., VLAN 50)?", o_si: ["switchport access vlan 50", "vlan 50 enable", "ip address vlan 50", "assign port vlan 50"], o_en: ["switchport access vlan 50", "vlan 50 enable", "ip address vlan 50", "assign port vlan 50"], a: 0 },
+            { l: 'Lab', q_si: "Router එකේ ප්‍රධාන (main) interface එක (උදා: Fa0/0) ක්‍රියාත්මක (on) කිරීමට භාවිතා කරන විධානය කුමක්ද?", q_en: "Which command is used to turn on the main interface of a Router (e.g., Fa0/0)?", o_si: ["start interface", "enable interface", "no shutdown", "interface up"], o_en: ["start interface", "enable interface", "no shutdown", "interface up"], a: 2 },
+            { l: 'Lab', q_si: "VLAN ID 100 සඳහා sub-interface එකක් නිර්මාණය කරන නිවැරදි විධානය කුමක්ද? (FastEthernet 0/0 භාවිතා කරමින්)", q_en: "What is the correct command to create a sub-interface for VLAN ID 100? (Using FastEthernet 0/0)", o_si: ["interface vlan 100", "interface FastEthernet 0/0.100", "interface FastEthernet 100/0", "vlan 100 sub-interface"], o_en: ["interface vlan 100", "interface FastEthernet 0/0.100", "interface FastEthernet 100/0", "vlan 100 sub-interface"], a: 1 },
+            { l: 'Lab', q_si: "Ping විධානය ක්‍රියාත්මක කිරීමට පෙර, අදාළ ගමනාන්තයේ MAC address එක සොයාගැනීමට යවන Packet එක කුමක්ද?", q_en: "Before executing a Ping command, which packet is sent to find the MAC address of the destination?", o_si: ["DNS Query", "ICMP Echo", "ARP Request", "TCP SYN"], o_en: ["DNS Query", "ICMP Echo", "ARP Request", "TCP SYN"], a: 2 },
+            { l: 'Lab', q_si: "පරිගණකයක (PC) ඇති ARP Cache එක (Table එක) මකා දැමීමට භාවිතා කරන විධානය කුමක්ද?", q_en: "Which command is used to clear the ARP Cache (Table) on a PC?", o_si: ["arp -clear", "arp -delete", "arp -d", "arp -x"], o_en: ["arp -clear", "arp -delete", "arp -d", "arp -x"], a: 2 },
+            { l: 'Lab', q_si: "දැනට පරිගණකයේ ගබඩා වී ඇති ARP table එක බැලීමට භාවිතා කරන විධානය කුමක්ද?", q_en: "Which command is used to view the currently stored ARP table on a PC?", o_si: ["arp -show", "arp -a", "show arp", "display arp"], o_en: ["arp -show", "arp -a", "show arp", "display arp"], a: 1 },
+            { l: 'Lab', q_si: "Router එකකට අනවසරයෙන් ඇතුළුවීම වැළැක්වීමට ලබා දෙන මුරපද (Passwords) ප්‍රධාන වර්ග 2 කුමක්ද?", q_en: "What are the 2 main types of passwords used to prevent unauthorized access to a Router?", o_si: ["Admin සහ Guest", "User level සහ Privilege level", "Local සහ Cloud", "System සහ Application"], o_en: ["Admin and Guest", "User level and Privilege level", "Local and Cloud", "System and Application"], a: 1 },
+            { l: 'Lab', q_si: "\"Buffer Filtered Events Only\" යන විකල්පය (Option) Packet Tracer හි භාවිතා කරන්නේ ඇයි?", q_en: "Why is the \"Buffer Filtered Events Only\" option used in Packet Tracer?", o_si: ["අවශ්‍ය සිදුවීම් (Events) පමණක් ගබඩා කර Memory පිරීයාම වැළැක්වීමට", "පැකට් වේගවත් කිරීමට", "දෝෂ ඇති පැකට් මකා දැමීමට", "වයිරස් වලින් ආරක්ෂා වීමට"], o_en: ["To store only required events and prevent memory overflow", "To speed up packets", "To delete error packets", "To protect against viruses"], a: 0 },
+            { l: 'Lab', q_si: "Private IP ලිපිනයක් (උදා: 192.168.1.10) භාවිතා කිරීමේ ලක්ෂණයක් කුමක්ද?", q_en: "What is a characteristic of using a Private IP address (e.g., 192.168.1.10)?", o_si: ["එය ලෝකයේ වෙනත් කිසිම පරිගණකයක භාවිතා කළ නොහැක", "එය අන්තර්ජාලය තුළ (Public Internet) සෘජුවම භාවිතා කළ නොහැක", "එය ගෙවීමක් කර ලබාගත යුතුය", "එය Router වලට පමණක් ලබා දේ"], o_en: ["It cannot be used by any other computer in the world", "It cannot be used directly on the Public Internet", "It must be purchased", "It is only given to Routers"], a: 1 },
+            { l: 'Lab', q_si: "Packet Tracer හි රවුටරයක (Router) Command Line Interface (CLI) එකට පිවිසීමේදී මුලින්ම විමසන User Level මුරපදය සකසන්නේ කෙසේද?", q_en: "How do you set the User Level password that is asked first when accessing a Router's CLI in Packet Tracer?", o_si: ["enable secret password මගින්", "Line console 0 හරහා password එකක් ලබාදීමෙන්", "vty lines හරහා password ලබාදීමෙන්", "Router හි භෞතික (Physical) බොත්තමක් එබීමෙන්"], o_en: ["Using 'enable secret password'", "By setting a password via 'line console 0'", "By setting passwords via 'vty lines'", "By pressing a physical button on the router"], a: 1 }
+        ];
+
+        // App State
+        let currentLang = 'en';
+        let answeredQuestions = new Array(mcqData.length).fill(false);
+        let selectedAnswers = new Array(mcqData.length).fill(null);
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            let currentLecture = '';
+            let htmlContent = '';
+
+            mcqData.forEach((item, index) => {
+                // Add lecture headers
+                if (item.l !== currentLecture) {
+                    currentLecture = item.l;
+                    htmlContent += `
+                        <div id="lecture-${item.l}" class="lecture-section my-8 border-b-4 border-blue-500 pb-2">
+                            <h2 class="text-2xl font-bold text-blue-800 dark:text-blue-400" id="lecture-title-${item.l}">
+                                ${item[`lname_${currentLang}`]}
+                            </h2>
+                        </div>
+                    `;
+                }
+
+                // Build question card
+                let optionsHtml = '';
+                item[`o_${currentLang}`].forEach((opt, optIndex) => {
+                    optionsHtml += `
+                        <label id="lbl-${index}-${optIndex}" class="opt-label block p-3 mb-2 rounded border border-gray-300 dark:border-gray-600 transition-colors cursor-pointer">
+                            <input type="radio" name="q${index}" value="${optIndex}" class="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500" onchange="enableCheckBtn(${index})">
+                            <span class="text-lg" id="opt-text-${index}-${optIndex}">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                htmlContent += `
+                    <div class="bg-white dark:bg-darkcard p-6 rounded-lg shadow-md mb-6 border dark:border-gray-700 transition-colors" id="q-card-${index}">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
+                            <span class="text-blue-600 dark:text-blue-400 mr-2">${index + 1}.</span>
+                            <span id="q-text-${index}">${item[`q_${currentLang}`]}</span>
+                        </h3>
+                        <div class="options-group mb-4">
+                            ${optionsHtml}
+                        </div>
+                        <button id="check-btn-${index}" disabled class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded opacity-50 cursor-not-allowed transition-all" onclick="checkAnswer(${index})">
+                            ${uiText[currentLang].checkBtn}
+                        </button>
+                        <div id="feedback-${index}" class="mt-4 p-3 rounded hidden font-medium transition-colors"></div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        // Functions for Toggle
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            const icon = document.getElementById('darkModeIcon');
+            if(isDark) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        function toggleLanguage() {
+            // Switch Language State
+            currentLang = currentLang === 'si' ? 'en' : 'si';
+            
+            // Update Toggle Button Text
+            document.getElementById('langToggleBtn').innerText = currentLang === 'si' ? 'EN' : 'සිංහල';
+            
+            // Update general UI text
+            document.getElementById('main-title').innerText = uiText[currentLang].title;
+            document.getElementById('opt-select-lec').innerText = uiText[currentLang].selectLec;
+
+            // Update Lab option in dropdown
+            const optLab = document.getElementById('opt-lab');
+            if(optLab) {
+                optLab.innerText = currentLang === 'si' ? 'ලැබ් ප්‍රායෝගික (Lab Practicals)' : 'Lab Practicals';
+            }
+
+            // Update DOM element by element to preserve 'checked' state and visual feedback
+            mcqData.forEach((item, index) => {
+                // Update Question Text
+                document.getElementById(`q-text-${index}`).innerText = item[`q_${currentLang}`];
+                
+                // Update Options
+                item[`o_${currentLang}`].forEach((opt, optIndex) => {
+                    document.getElementById(`opt-text-${index}-${optIndex}`).innerText = opt;
+                });
+
+                // Update Button
+                const btn = document.getElementById(`check-btn-${index}`);
+                if (btn) {
+                    btn.innerText = uiText[currentLang].checkBtn;
+                }
+
+                // If this question is already answered, update its feedback text
+                if (answeredQuestions[index]) {
+                    renderFeedbackUI(index);
+                }
+            });
+
+            // Update Lecture Headers safely
+            const uniqueLectures = [...new Set(mcqData.map(item => item.l))];
+            uniqueLectures.forEach(l => {
+                const lectureItem = mcqData.find(item => item.l === l);
+                const header = document.getElementById(`lecture-title-${l}`);
+                if (header) {
+                    header.innerText = lectureItem[`lname_${currentLang}`];
+                }
+            });
+        }
+
+        // Quiz Logic Methods
+        function enableCheckBtn(qIndex) {
+            const btn = document.getElementById(`check-btn-${qIndex}`);
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        function checkAnswer(qIndex) {
+            const selectedOption = document.querySelector(`input[name="q${qIndex}"]:checked`);
+            if (!selectedOption) return;
+
+            const selectedValue = parseInt(selectedOption.value);
+            selectedAnswers[qIndex] = selectedValue;
+            answeredQuestions[qIndex] = true;
+
+            const qCard = document.getElementById(`q-card-${qIndex}`);
+            const radios = qCard.querySelectorAll(`input[name="q${qIndex}"]`);
+
+            // Disable radios
+            radios.forEach(radio => {
+                radio.disabled = true;
+                const label = document.getElementById(`lbl-${qIndex}-${radio.value}`);
+                label.classList.add('disabled');
+            });
+
+            // Hide button
+            document.getElementById(`check-btn-${qIndex}`).style.display = 'none';
+
+            // Render Feedback
+            renderFeedbackUI(qIndex);
+        }
+
+        function renderFeedbackUI(qIndex) {
+            const selectedValue = selectedAnswers[qIndex];
+            const correctValue = mcqData[qIndex].a;
+            const feedbackDiv = document.getElementById(`feedback-${qIndex}`);
+            const labels = [];
+            
+            // Gather labels
+            for(let i=0; i<mcqData[qIndex].o_si.length; i++) {
+                labels.push(document.getElementById(`lbl-${qIndex}-${i}`));
+            }
+
+            if (selectedValue === correctValue) {
+                // Correct UI
+                labels[selectedValue].classList.add('correct-bg');
+                feedbackDiv.innerHTML = `<i class="fas fa-check-circle text-green-600 dark:text-green-400 mr-2 text-xl"></i> <span class="text-green-800 dark:text-green-400">${uiText[currentLang].correctStatus}</span>`;
+                feedbackDiv.className = `mt-4 p-3 rounded font-medium bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-600`;
+            } else {
+                // Wrong UI
+                labels[selectedValue].classList.add('wrong-bg');
+                labels[correctValue].classList.add('correct-bg', 'border-green-500', 'border-2');
+                
+                feedbackDiv.innerHTML = `
+                    <i class="fas fa-times-circle text-red-600 dark:text-red-400 mr-2 text-xl"></i> <span class="text-red-800 dark:text-red-400 mb-1 block">${uiText[currentLang].wrongStatus}</span>
+                    <span class="text-green-700 dark:text-green-400 text-sm mt-1 block border-t border-green-200 dark:border-green-700 pt-2"><i class="fas fa-arrow-right mr-1"></i> ${uiText[currentLang].correctAnsPrefix} <b>${mcqData[qIndex][`o_${currentLang}`][correctValue]}</b></span>
+                `;
+                feedbackDiv.className = `mt-4 p-3 rounded font-medium bg-red-50 dark:bg-red-900 border border-red-400 dark:border-red-600`;
+            }
+
+            feedbackDiv.classList.remove('hidden');
+        }
+
+        function scrollToLecture() {
+            const select = document.getElementById('lectureSelect');
+            const targetId = select.value;
+            if (targetId) {
+                const targetElement = document.getElementById(`lecture-${targetId}`);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            setTimeout(() => { select.value = ""; }, 1000); 
+        }
+
+        // Check system preference for dark mode initially
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            toggleDarkMode(); // Set to dark mode if system prefers it
+        }
+
+        // Initialize App
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
